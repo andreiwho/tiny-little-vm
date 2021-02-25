@@ -37,14 +37,12 @@ namespace tlvm::proc {
     struct Procedure {
         Procedure() = default;
 
-        explicit Procedure(std::string id) : identifier(std::move(id)) {}
-
         std::string identifier{};
         std::unordered_map<std::string, data::Value> frame{};
         std::queue<std::shared_ptr<Cmd>>             commands{};
 
+        inline Procedure set_id(std::string id) { identifier = id; return *this;}
         Procedure define_value(data::Value value);
-
         Procedure print(std::string id);
 
         void run();

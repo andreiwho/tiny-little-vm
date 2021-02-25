@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "type.h"
+#include "proc.h"
 
 namespace tlvm {
     enum class Keyword {
@@ -15,6 +16,7 @@ namespace tlvm {
     };
 
     enum class TokenType {
+        none,
         identifier,
         keyword,
         literal,
@@ -34,6 +36,8 @@ namespace tlvm {
 
     static inline constexpr const char* ToString(TokenType type) {
         switch (type) {
+            case TokenType::none:
+                return "none";
             case TokenType::identifier:
                 return "identifier";
                 break;
@@ -103,5 +107,6 @@ namespace tlvm {
     struct Compiler {
         [[nodiscard]] static std::vector<std::string> split_into_lines(std::string&& text);
         [[nodiscard]] static std::vector<std::shared_ptr<Token>> tokenize(const std::string& line);
+        [[nodiscard]] static std::vector<proc::Procedure> compile(std::string&& text);
     };
 }

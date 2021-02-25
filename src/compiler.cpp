@@ -112,4 +112,39 @@ namespace tlvm {
 
         return return_value;
     }
+
+    std::vector<proc::Procedure> Compiler::compile(std::string&& text) {
+        std::vector<proc::Procedure> return_value;
+
+        std::vector<TokenType> local_expected;
+
+        auto lines = split_into_lines(std::forward<std::string>(text));
+        for(const auto& line : lines) {
+            for(const auto& token : tokenize(line)) {
+                switch(token->type){
+                    case TokenType::none:
+                        break;
+                    case TokenType::identifier:
+                        local_expected.push_back(TokenType::none);
+                        local_expected.push_back(TokenType::type);
+                        local_expected.push_back(TokenType::specifier);
+                        break;
+                    case TokenType::keyword:
+                        break;
+                    case TokenType::literal:
+                        break;
+                    case TokenType::type:
+                        break;
+                    case TokenType::specifier:
+                        break;
+                    case TokenType::advance:
+                        break;
+                    case TokenType::binop:
+                        break;
+                }
+            }
+        }
+
+        return return_value;
+    }
 }
